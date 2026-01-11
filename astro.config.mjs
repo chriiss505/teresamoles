@@ -9,5 +9,6 @@ export default defineConfig({
     plugins: [tailwindcss()],
   },
   site: "https://chriiss505.github.io",
-  base: "/teresamoles", // Solo si es repositorio de proyecto, no user/organization pages
+  base: "/teresamoles", // Solo si es repositorio de proyecto, no user/organization pages"
+  output: "static",
 });
