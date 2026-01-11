@@ -1,0 +1,15 @@
+<div class="gradient-overlay fixed inset-0 w-full h-full pointer-events-none z-0"></div>
+<style>
+    .gradient-overlay{
+        background: linear-gradient(0deg, var(--color-footerGradient) 0%, transparent 40%);
+        transform: translate3d(0, 0, 0);
+        will-change: opacity;
+        contain: layout style paint;
+    }
+    
+    @media (min-width: 640px) {
+        .gradient-overlay {
+            background: linear-gradient(0deg, var(--color-footerGradient) 0%, transparent 49%);
+        }
+    }
+</style>

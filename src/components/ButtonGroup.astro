@@ -1,0 +1,78 @@
+---
+interface ButtonItem {
+  label: string;
+  href: string;
+  class?: string;
+}
+
+const { buttons, class: className = '' } = Astro.props;
+---
+
+<div class={`button-group flex items-center gap-0${className}`}>
+  {buttons.map((button: ButtonItem, index: number) => {
+    const isFirst = index === 0;
+    const isLast = index === buttons.length - 1;
+    
+    let buttonClasses = "button-group__item";
+    
+    if (isFirst) {
+      buttonClasses += " button-group__item--first";
+    } else if (isLast) {
+      buttonClasses += " button-group__item--last";
+    } else {
+      buttonClasses += " button-group__item--middle";
+    }
+    
+    if (button.class) {
+      buttonClasses += ` ${button.class}`;
+    }
+    
+    return (
+      <a href={button.href} class={buttonClasses}>
+        {button.label}
+      </a>
+    );
+  })}
+</div>
+
+<style>
+  .button-group__item {
+    background-color: #e7e6e6;
+    color: var(--color-foreground);
+    font-size: 0.8rem;
+    font-weight: 400;
+    padding: 0.400rem 1rem; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: filter 0.2s;
+    white-space: nowrap;
+    text-decoration: none;
+
+    border: solid 1px #e9e9e9;
+  }
+  
+  .button-group__item:hover {
+    filter: brightness(0.9);
+  }
+  
+  .button-group__item--first {
+    border-top-left-radius: 9999px;
+    border-bottom-left-radius: 9999px;
+  }
+  
+  .button-group__item--middle {
+  }
+  
+  .button-group__item--last {
+    border-top-right-radius: 9999px;
+    border-bottom-right-radius: 9999px;
+  }
+  
+  @media (min-width: 640px) {
+    .button-group__item {
+      font-size: 1rem;
+      padding: 0.4rem 1.5rem;
+    }
+  }
+</style>

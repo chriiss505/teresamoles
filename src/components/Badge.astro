@@ -1,0 +1,195 @@
+---
+export interface BadgeProps {
+  // Contenido
+  text?: string;        // Texto a mostrar en el badge (alternativa a children)
+  children?: any;       // Contenido JSX alternativo
+  
+  // Variantes de estilo
+  variant?: 'default' | 'primary' | 'success' | 'warning' | 'error' | 'outline' | 'ghost';  // Tipo de badge
+  size?: 'sm' | 'md' | 'lg';  // Tamaño del badge
+  
+  // Icono
+  icon?: string;        // SVG como string para el icono (usar safe:sethtml)
+  iconPosition?: 'left' | 'right';  // Posición del icono respecto al texto
+  
+
+  
+  // Clases adicionales
+  class?: string;       // Clases CSS personalizadas
+}
+
+const {
+  text,
+  children,
+  variant = 'default',      // Por defecto: estilo gris neutro
+  size = 'md',             // Por defecto: tamaño medio
+  icon,
+  iconPosition = 'left',   // Por defecto: icono a la izquierda
+  onRemove,
+  class: className = ''
+} = Astro.props;
+
+const content = text || children;  // Usa text si existe, sino children
+---
+
+<span class={`badge badge--${variant} badge--${size} ${className}`}>
+  {/* Icono a la izquierda (si existe y está configurado) */}
+  {icon && iconPosition === 'left' && (
+    <span class="badge__icon badge__icon--left" set:html={icon} />
+  )}
+  
+  {/* Contenido principal del badge */}
+  {content && <span class="badge__content">{content}</span>}
+  
+  {/* Icono a la derecha (si existe y está configurado) */}
+  {icon && iconPosition === 'right' && (
+    <span class="badge__icon badge__icon--right" set:html={icon} />
+  )}
+  
+ 
+</span>
+
+<style>
+  /* ---------- ESTILOS BASE ---------- */
+  .badge {
+    display: inline-flex;          /* Flexbox para alinear icono+texto+botón */
+    align-items: center;           /* Centra verticalmente */
+    justify-content: center;       /* Centra horizontalmente */
+    border-radius: 999px;            /* Bordes redondeados */
+    font-weight: 500;              /* Peso de fuente medio */
+    white-space: nowrap;           /* Evita que el texto se divida en varias líneas */
+    transition: all 0.2s ease;     /* Transición suave para hover y otros efectos */
+    border: 1px solid transparent; /* Borde invisible por defecto */
+  }
+  
+  /* ---------- VARIANTES DE COLOR ---------- */
+  
+  /* Estilo por defecto: gris neutro */
+  .badge--default {
+    background-color: #f3f4f6;  /* Fondo gris claro */
+    color: #374151;             /* Texto gris oscuro */
+    border-color: #374151;      /* Borde gris medio */
+  }
+
+  
+  /* Estilo primario: azul (acción principal) */
+  .badge--primary {
+    background-color: #3b82f6;  /* Fondo azil */
+    color: white;               /* Texto blanco */
+  }
+  
+  /* Estilo éxito: verde (confirmación, positivo) */
+  .badge--success {
+    background-color: #10b981;  /* Fondo verde */
+    color: white;               /* Texto blanco */
+  }
+  
+  /* Estilo advertencia: amarillo/naranja (alerta, atención) */
+  .badge--warning {
+    background-color: #f59e0b;  /* Fondo naranja/ámbar */
+    color: white;               /* Texto blanco */
+  }
+  
+  /* Estilo error: rojo (problema, eliminación) */
+  .badge--error {
+    background-color: #ef4444;  /* Fondo rojo */
+    color: white;               /* Texto blanco */
+  }
+  
+  /* Estilo outline: solo borde, fondo transparente */
+  .badge--outline {
+    background-color: transparent;  /* Fondo gris claro */
+    color: var(--color-foreground);             /* Texto gris oscuro */
+    border-color: #374151;      /* Borde gris medio */       /* Borde gris claro */
+  }
+  
+  /* Estilo ghost: sin fondo ni borde, texto tenue */
+  .badge--ghost {
+    background-color: transparent;  /* Fondo transparente */
+    color: #6b7280;                 /* Texto gris medio (menos visible) */
+  }
+  
+  /* ---------- TAMAÑOS ---------- */
+  
+  /* Small: para espacios reducidos */
+  .badge--sm {
+    font-size: 0.75rem;        /* 12px */
+    padding: 0.125rem 0.5rem;  /* 2px 8px */
+    gap: 0.25rem;              /* Espacio entre elementos: 4px */
+  }
+  
+  /* Medium: tamaño por defecto */
+  .badge--md {
+    font-size: 0.875rem;       /* 14px */
+    padding: 0.25rem 0.625rem; /* 4px 10px */
+    gap: 0.375rem;             /* Espacio entre elementos: 6px */
+  }
+  
+  /* Large: para mayor visibilidad */
+  .badge--lg {
+    font-size: 1rem;           /* 16px */
+    padding: 0.375rem 0.75rem; /* 6px 12px */
+    gap: 0.5rem;               /* Espacio entre elementos: 8px */
+  }
+  
+  /* ---------- ELEMENTOS INTERNOS ---------- */
+  
+  /* Contenedor del texto */
+  .badge__content {
+    line-height: 1;  /* Elimina espacio extra vertical */
+  }
+  
+  /* Contenedor de icono */
+  .badge__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 0;  /* Elimina espacio extra en iconos SVG */
+  }
+  
+  /* Asegura que los SVG dentro de iconos tengan tamaño consistente */
+  .badge__icon svg {
+    width: 1em;   /* Mismo tamaño que la fuente */
+    height: 1em;  /* Mismo tamaño que la fuente */
+  }
+  
+  /* ---------- BOTÓN PARA ELIMINAR ---------- */
+  
+  /* Estilos del botón de eliminar (X) */
+  .badge__remove {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 0.25rem;      /* Espacio a la izquierda del texto */
+    padding: 0.125rem;         /* Padding pequeño */
+    border: none;              /* Sin borde */
+    background: none;          /* Sin fondo */
+    color: inherit;            /* Hereda color del badge */
+    cursor: pointer;           /* Cursor de mano */
+    opacity: 0.7;              /* Semi-transparente por defecto */
+    border-radius: 3px;        /* Bordes ligeramente redondeados */
+    transition: all 0.2s ease; /* Transición suave */
+    line-height: 0;            /* Elimina espacio vertical */
+  }
+  
+  /* Efecto hover en botón de eliminar (para badges claros) */
+  .badge__remove:hover {
+    opacity: 1;                               /* Totalmente visible */
+    background-color: rgba(0, 0, 0, 0.1);     /* Fondo gris muy tenue */
+  }
+  
+  /* Efecto hover en botón de eliminar (para badges oscuros) */
+  .badge--primary .badge__remove:hover,
+  .badge--success .badge__remove:hover,
+  .badge--warning .badge__remove:hover,
+  .badge--error .badge__remove:hover {
+    background-color: rgba(255, 255, 255, 0.2);  /* Fondo blanco tenue */
+  }
+  
+  /* ---------- INTERACCIONES ---------- */
+  
+  /* Efecto cuando el badge tiene el botón de eliminar en hover */
+  .badge:has(.badge__remove:hover) {
+    opacity: 0.9;  /* Ligeramente transparente */
+  }
+</style>

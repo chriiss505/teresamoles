@@ -1,0 +1,23 @@
+---
+import ButtonGroup from '../../components/ButtonGroup.astro';
+import Badge from '../../components/Badge.astro';
+
+---
+<header class="sticky top-0 z-50 w-full py-4 sm:py-6 backdrop-blur-sm bg-[var(--color-background)]/80">
+    <nav class="flex items-center justify-between max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        {/* Contenido izquierda */}
+        <div class="flex items-center">
+            <p>( )</p>
+        </div>
+
+        {/* Contenido derecha */}
+        <div class="flex items-center">
+            <ButtonGroup 
+                buttons={[
+                    { label: 'Información', href: '/servicios', class:'shadow-sm' },
+                    { label: 'Contáctanos', href: '/contact',class:'shadow-sm' }
+                ]}
+            />
+        </div>
+    </nav>
+</header>

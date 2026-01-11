@@ -1,0 +1,15 @@
+---
+const { label, href, class: className = '' } = Astro.props;
+const baseClasses = "bg-[var(--color-primary)] text-[var(--color-background)] font-bold flex items-center justify-center hover:brightness-90 transition-colors";
+const defaultClasses = "z-1 min-w-[150px] sm:min-w-[200px] h-[35px] rounded-xl text-[14px] px-4";
+const classes = href ? `${baseClasses} ${className}` : `${baseClasses} ${defaultClasses} ${className}`;
+---
+{href ? (
+  <a href={href} class={classes}>
+    <p class="m-0">{label}</p>
+  </a>
+) : (
+  <button class={classes}>
+    <p class="m-0">{label}</p>
+  </button>
+)}
