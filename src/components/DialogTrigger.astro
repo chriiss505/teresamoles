@@ -1,0 +1,69 @@
+---
+import Button from "./Button.astro";
+import Dialog from "./Dialog.astro";
+import Input from "./Input.astro";
+---
+
+<Button 
+  label="Avísame"
+  variant="default"
+  class="animate-fade-in-up animate-delay-1000 animate-duration-1000"
+  data-open-dialog
+/>
+
+<Dialog title="Avísame de la apertura por email">
+  <form class="flex flex-col gap-4">
+    <p class="text-sm text-gray-600">
+      Si nos dejas tu email te avisaremos cuando abramos tu nueva clínica dental y espacio de bienestar.
+    </p>
+
+    <Input 
+      label="Nombre" 
+      placeholder="Tu nombre completo"
+      name="name"
+      required
+    />
+    
+    <Input 
+      label="Email" 
+      type="email"
+      placeholder="tu@email.com"
+      name="email"
+      required
+    />
+
+    <label class="flex items-center gap-2 text-sm cursor-pointer">
+      <input 
+        type="checkbox" 
+        class="w-4 h-4 accent-[var(--color-primary)] cursor-pointer" 
+        required 
+      />
+      <span class="text-left">Acepto los términos y condiciones</span>
+    </label>
+
+    <label class="flex items-center gap-2 text-sm cursor-pointer">
+      <input 
+        type="checkbox" 
+        class="w-4 h-4 accent-[var(--color-primary)] cursor-pointer" 
+      />
+      <span class="text-left">Acepto el envío de emails</span>
+    </label>
+  </form>
+</Dialog>
+
+<script>
+  const dialog = document.querySelector("[data-dialog]");
+  const openBtn = document.querySelector("[data-open-dialog]");
+
+  if (dialog && openBtn) {
+    openBtn.addEventListener("click", () => {
+      dialog.classList.remove("hidden");
+    });
+
+    dialog.querySelectorAll("[data-close-dialog]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        dialog.classList.add("hidden");
+      });
+    });
+  }
+</script>

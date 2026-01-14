@@ -1,8 +1,17 @@
 ---
-import Button from '../../components/Button.astro';
+import DialogTrigger from "../../components/DialogTrigger.astro";
 ---
+
 <hero class="text-center flex flex-col items-center gap-8 sm:gap-16 px-4 sm:px-0">
-    <h4 class="animate-fade-in-down animate-delay-200 px-2">Próxima apertura Clínica Dental en Burriana.</h4>
-    <img class="animate-fade-in-up animate-delay-300 animate-duration-1000 w-full max-w-[280px] sm:max-w-md md:max-w-xl mx-auto" src="teresaMoles_logoTagline.svg" alt="Teresa Moles Logo y Tagline" />
-    <Button class="animate-fade-in-up animate-delay-1000 animate-duration-1000" label="Avísame" />
+  <h4 class="animate-fade-in-down animate-delay-200 px-2">
+    Próxima apertura Clínica Dental en Burriana.
+  </h4>
+
+  <img
+    class="animate-fade-in-up animate-delay-300 animate-duration-1000 w-full max-w-[280px] sm:max-w-md md:max-w-xl mx-auto"
+    src="teresaMoles_logoTagline.svg"
+    alt="Teresa Moles Logo y Tagline"
+  />
+
+  <DialogTrigger />
 </hero>

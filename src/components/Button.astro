@@ -1,15 +1,36 @@
 ---
-const { label, href, class: className = '' } = Astro.props;
-const baseClasses = "bg-[var(--color-primary)] text-[var(--color-background)] font-bold flex items-center justify-center hover:brightness-90 transition-colors";
-const defaultClasses = "z-1 min-w-[150px] sm:min-w-[200px] h-[35px] rounded-xl text-[14px] px-4";
-const classes = href ? `${baseClasses} ${className}` : `${baseClasses} ${defaultClasses} ${className}`;
+interface Props {
+  label: string;
+  href?: string;
+  variant?: 'default' | 'outlined' | 'ghost';
+  class?: string;
+  [key: string]: any;
+}
+
+const { label, href, variant = 'default', class: className = '', ...rest } = Astro.props as Props;
+
+const baseClasses =
+  "font-bold flex items-center justify-center transition-colors cursor-pointer";
+
+const variantClasses: Record<'default' | 'outlined'| 'ghost', string> = {
+  default: "bg-[var(--color-primary)] text-[var(--color-background)] hover:!opacity-90 transition-opacity duration-200",
+outlined: "bg-transparent border-1 border-[var(--color-border)] text-[var(--color-primary)] hover:bg-[var(--color-primary)]/10 transition-all duration-200",
+ghost: "bg-transparent text-[var(--color-primary)] hover:bg-[var(--color-primary)]/10 transition-all duration-200"
+};
+
+const defaultClasses =
+  "z-1 min-w-[150px] sm:min-w-[150px] h-[35px] rounded-full text-[14px] px-4";
+
+  const classes = href
+  ? `${baseClasses} ${variantClasses[variant]} ${className}`
+  : `${baseClasses} ${variantClasses[variant]} ${defaultClasses} ${className}`;
 ---
 {href ? (
-  <a href={href} class={classes}>
+  <a href={href} class={classes} {...rest}>
     <p class="m-0">{label}</p>
   </a>
 ) : (
-  <button class={classes}>
+  <button class={classes} {...rest}>
     <p class="m-0">{label}</p>
   </button>
 )}

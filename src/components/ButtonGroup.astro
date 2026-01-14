@@ -5,10 +5,15 @@ interface ButtonItem {
   class?: string;
 }
 
-const { buttons, class: className = '' } = Astro.props;
+interface Props {
+  buttons: ButtonItem[];
+  class?: string;
+}
+
+const { buttons, class: className = '' } = Astro.props as Props;
 ---
 
-<div class={`button-group flex items-center gap-0${className}`}>
+<div class={`button-group flex items-center gap-0 ${className}`}>
   {buttons.map((button: ButtonItem, index: number) => {
     const isFirst = index === 0;
     const isLast = index === buttons.length - 1;
@@ -45,15 +50,14 @@ const { buttons, class: className = '' } = Astro.props;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: filter 0.2s;
+    transition: opacity 0.2s ease-in-out;
     white-space: nowrap;
     text-decoration: none;
-
     border: solid 1px #e9e9e9;
   }
   
   .button-group__item:hover {
-    filter: brightness(0.9);
+    opacity: 0.85;
   }
   
   .button-group__item--first {
