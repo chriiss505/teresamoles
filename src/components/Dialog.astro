@@ -5,9 +5,9 @@ const { title, id, showSubmit = true } = Astro.props;
 
 <div
   data-dialog={id}
-  class="fixed inset-0 z-[100] bg-black/50 backdrop-blur-sm hidden"
+  class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm hidden"
 >
-  <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-[var(--color-background)] rounded-xl shadow-xl max-w-2xl w-[90vw] sm:w-full p-8 sm:p-16 relative">
+  <div class="bg-[var(--color-background)] rounded-xl shadow-xl max-w-2xl w-[90vw] sm:w-full p-8 sm:p-16 relative">
     <button
       type="button"
       class="absolute top-3 right-3 text-gray-500 hover:text-gray-700"
@@ -38,36 +38,3 @@ const { title, id, showSubmit = true } = Astro.props;
   </div>
 </div>
 
-<script>
-  function initDialog() {
-    const dialogs = document.querySelectorAll("[data-dialog]");
-    const openBtns = document.querySelectorAll("[data-open-dialog]");
-    const closeButtons = document.querySelectorAll("[data-close-dialog]");
-
-    openBtns.forEach(btn => {
-      const dialogId = btn.dataset.openDialog;
-      const dialog = document.querySelector(`[data-dialog="${dialogId}"]`);
-      if (dialog) {
-        btn.addEventListener("click", () => {
-          dialog.classList.remove("hidden");
-        });
-      }
-    });
-
-    closeButtons.forEach(btn => {
-      btn.addEventListener("click", (e) => {
-        e.preventDefault();
-        const dialog = btn.closest("[data-dialog]");
-        if (dialog) {
-          dialog.classList.add("hidden");
-        }
-      });
-    });
-  }
-
-  // Inicializar al cargar
-  initDialog();
-
-  // Re-inicializar después de navegación (si usas View Transitions)
-  document.addEventListener("astro:page-load", initDialog);
-</script>
