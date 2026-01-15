@@ -2,25 +2,25 @@
 
 interface Props {
   label?: string;
-  type?: 'text' | 'email' | 'password' | 'number' | 'tel' | 'url' | 'search' | 'date' | 'time' | 'datetime-local' | 'month' | 'week' | 'color';
   placeholder?: string;
   name?: string;
   required?: boolean;
+  rows?: number;
   class?: string;
   [key: string]: any;
 }
 
-const { 
-  label, 
-  type = 'text', 
-  placeholder, 
+const {
+  label,
+  placeholder,
   name,
   required = false,
-  class: className = '', 
-  ...rest 
+  rows = 4,
+  class: className = '',
+  ...rest
 } = Astro.props as Props;
 
-const inputClasses = `bg-white  rounded-lg px-4 py-2 w-full shadow-sm focus:outline-none focus:ring-1 focus:ring-[var(--color-border)] focus:border-transparent focus:shadow-md transition-all ${className}`;
+const textareaClasses = `bg-white rounded-lg px-4 py-2 w-full shadow-sm focus:outline-none focus:ring-1 focus:ring-[var(--color-border)] focus:border-transparent focus:shadow-md transition-all resize-none ${className}`;
 ---
 
 <div class="flex flex-col gap-2">
@@ -30,12 +30,12 @@ const inputClasses = `bg-white  rounded-lg px-4 py-2 w-full shadow-sm focus:outl
       {required && <span class="text-(--color-secondary) ">*</span>}
     </label>
   )}
-  <input
-    type={type}
+  <textarea
     placeholder={placeholder}
     name={name}
     required={required}
-    class={inputClasses}
+    rows={rows}
+    class={textareaClasses}
     {...rest}
-  />
+  ></textarea>
 </div>

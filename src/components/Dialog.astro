@@ -1,13 +1,13 @@
 ---
 import Button from "./Button.astro";
-const { title } = Astro.props;
+const { title, id, showSubmit = true } = Astro.props;
 ---
 
 <div
-  data-dialog
-  class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm hidden"
+  data-dialog={id}
+  class="fixed inset-0 z-[100] bg-black/50 backdrop-blur-sm hidden"
 >
-  <div class="bg-[var(--color-background)] rounded-xl shadow-xl max-w-md w-[90vw] sm:w-full p-8 sm:p-16 relative">
+  <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-[var(--color-background)] rounded-xl shadow-xl max-w-2xl w-[90vw] sm:w-full p-8 sm:p-16 relative">
     <button
       type="button"
       class="absolute top-3 right-3 text-gray-500 hover:text-gray-700"
@@ -16,52 +16,53 @@ const { title } = Astro.props;
       ✕
     </button>
 
-    {title && <h2 class="text-xl font-semibold mb-4">{title}</h2>}
-
     <!-- Usa <slot /> en lugar de {children} -->
     <div class="flex flex-col gap-4">
+      {title && <h2 class="text-xl font-semibold">{title}</h2>}
       <slot />
     </div>
 
     <div class="mt-6 flex flex-col sm:flex-row justify-center gap-3">
-      <Button 
-        label="Cerrar" 
+      <Button
+        label="Cerrar"
         variant="outlined"
         data-close-dialog
       />
 
-      <Button 
-        label="Enviar"
-      />
+      {showSubmit && (
+        <Button
+          label="Enviar"
+        />
+      )}
     </div>
   </div>
 </div>
 
 <script>
   function initDialog() {
-    const dialog = document.querySelector("[data-dialog]");
-    const openBtn = document.querySelector("[data-open-dialog]");
+    const dialogs = document.querySelectorAll("[data-dialog]");
+    const openBtns = document.querySelectorAll("[data-open-dialog]");
     const closeButtons = document.querySelectorAll("[data-close-dialog]");
 
-    if (dialog && openBtn) {
-      openBtn.addEventListener("click", () => {
-        dialog.classList.remove("hidden");
-      });
-
-      closeButtons.forEach(btn => {
-        btn.addEventListener("click", (e) => {
-          e.preventDefault();
-          dialog.classList.add("hidden");
+    openBtns.forEach(btn => {
+      const dialogId = btn.dataset.openDialog;
+      const dialog = document.querySelector(`[data-dialog="${dialogId}"]`);
+      if (dialog) {
+        btn.addEventListener("click", () => {
+          dialog.classList.remove("hidden");
         });
-      });
+      }
+    });
 
-      // Cerrar al hacer click fuera del modal
-      dialog.addEventListener("click", (e) => {
-        if (e.target === dialog) {
+    closeButtons.forEach(btn => {
+      btn.addEventListener("click", (e) => {
+        e.preventDefault();
+        const dialog = btn.closest("[data-dialog]");
+        if (dialog) {
           dialog.classList.add("hidden");
         }
       });
-    }
+    });
   }
 
   // Inicializar al cargar

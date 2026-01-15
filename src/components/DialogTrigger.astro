@@ -4,14 +4,14 @@ import Dialog from "./Dialog.astro";
 import Input from "./Input.astro";
 ---
 
-<Button 
+<Button
   label="Avísame"
   variant="default"
   class="animate-fade-in-up animate-delay-1000 animate-duration-1000"
-  data-open-dialog
+  data-open-dialog="avisame"
 />
 
-<Dialog title="Avísame de la apertura por email">
+<Dialog title="Avísame de la apertura por email" id="avisame">
   <form class="flex flex-col gap-4">
     <p class="text-sm text-gray-600">
       Si nos dejas tu email te avisaremos cuando abramos tu nueva clínica dental y espacio de bienestar.
@@ -52,8 +52,8 @@ import Input from "./Input.astro";
 </Dialog>
 
 <script>
-  const dialog = document.querySelector("[data-dialog]");
-  const openBtn = document.querySelector("[data-open-dialog]");
+  const dialog = document.querySelector('[data-dialog="avisame"]');
+  const openBtn = document.querySelector('[data-open-dialog="avisame"]');
 
   if (dialog && openBtn) {
     openBtn.addEventListener("click", () => {

@@ -1,5 +1,7 @@
 ---
-import ButtonGroup from '../../components/ButtonGroup.astro';
+import Dialog from '../../components/Dialog.astro';
+import Input from '../../components/Input.astro';
+import Textarea from '../../components/Textarea.astro';
 import Badge from '../../components/Badge.astro';
 
 ---
@@ -12,12 +14,103 @@ import Badge from '../../components/Badge.astro';
 
         {/* Contenido derecha */}
         <div class="flex items-center">
-            <ButtonGroup 
-                buttons={[
-                    { label: 'Información', href: '/servicios', class:'shadow-sm' },
-                    { label: 'Contáctanos', href: '/contact',class:'shadow-sm' }
-                ]}
-            />
+            <div class="button-group flex items-center gap-0">
+                <button 
+                    data-open-dialog="info" 
+                    class="button-group__item button-group__item--first shadow-sm"
+                >
+                    Información
+                </button>
+                <button 
+                    data-open-dialog="contact" 
+                    class="button-group__item button-group__item--last shadow-sm"
+                >
+                    Contáctanos
+                </button>
+            </div>
         </div>
     </nav>
 </header>
+
+<!-- Dialogs -->
+<Dialog title="Información" id="info" showSubmit={false}>
+    <h4>El espacio</h4>
+    <p>Estamos trabajando para construir un espacio donde te sientas bien. Queremos ser tu Clínica Dental de confianza en Burriana y espacio de referencia en el bienestar.</p>
+    <p>Nos encontramos en: <a href="https://www.google.com/maps/search/?api=1&query=Avenida+Cardenal+Vicente+Enrique+Tarancón+22,+Burriana" target="_blank" rel="noopener noreferrer" class="underline flex items-center gap-1" style="color: var(--color-primary);">Avenida Cardenal Vicente Enrique Tarancón 22 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a></p>
+    <h4>Teresa Molés</h4>
+    <p>Natural de Burriana, después de más de 10 años de experiencia en diferentes clínicas, ha decidido poner en marcha la suya propia. Su objetivo es tratar a las personas con profesionalidad, respeto y humanidad.</p>
+</Dialog>
+
+<Dialog title="¿Quieres decirnos algo?" id="contact">
+    <p>Utiliza este formulario para contactar con nosotros y te contestaremos lo antes posible.</p>
+    <form class="flex flex-col gap-4">
+        <Input
+            label="Nombre"
+            placeholder="Tu nombre completo"
+            name="name"
+            required
+        />
+
+        <Input
+            label="Email"
+            type="email"
+            placeholder="tu@email.com"
+            name="email"
+            required
+        />
+
+        <Textarea
+            label="Mensaje"
+            placeholder="Escribe tu mensaje aquí..."
+            name="message"
+            required
+        />
+
+        <label class="flex items-center gap-2 text-sm cursor-pointer">
+            <input
+                type="checkbox"
+                class="w-4 h-4 accent-[var(--color-primary)] cursor-pointer"
+                required
+            />
+            <span class="text-left">He leído y acepto la política de privacidad</span>
+        </label>
+    </form>
+</Dialog>
+
+<style>
+  .button-group__item {
+    background-color: #e7e6e6;
+    color: var(--color-foreground);
+    font-size: 0.8rem;
+    font-weight: 400;
+    padding: 0.400rem 1rem; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.2s ease-in-out;
+    white-space: nowrap;
+    text-decoration: none;
+    border: solid 1px #e9e9e9;
+  }
+  
+  .button-group__item:hover {
+    opacity: 0.85;
+  }
+  
+  .button-group__item--first {
+    border-top-left-radius: 9999px;
+    border-bottom-left-radius: 9999px;
+  }
+  
+  .button-group__item--last {
+    border-top-right-radius: 9999px;
+    border-bottom-right-radius: 9999px;
+  }
+  
+  @media (min-width: 640px) {
+    .button-group__item {
+      font-size: 1rem;
+      padding: 0.4rem 1.5rem;
+    }
+  }
+</style>
