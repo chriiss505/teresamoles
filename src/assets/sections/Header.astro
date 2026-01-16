@@ -31,173 +31,63 @@ import Badge from '../../components/Badge.astro';
         </div>
 
 </nav>
+ 
 </header>
 <!-- Dialogs -->
 <Dialog title="Información" id="info" showSubmit={false}>
-  <h4>El espacio</h4>
-  <p>Estamos trabajando para construir un espacio donde te sientas bien. Queremos ser tu Clínica Dental de confianza en Burriana y espacio de referencia en el bienestar.</p>
-  <p>Nos encontramos en: <a href="https://www.google.com/maps/search/?api=1&query=Avenida+Cardenal+Vicente+Enrique+Tarancón+22,+Burriana" target="_blank" rel="noopener noreferrer" class="underline flex items-center gap-1" style="color: var(--color-primary);">Avenida Cardenal Vicente Enrique Tarancón 22 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a></p>
-  <h4>Teresa Molés</h4>
-  <p>Natural de Burriana, después de más de 10 años de experiencia en diferentes clínicas, ha decidido poner en marcha la suya propia. Su objetivo es tratar a las personas con profesionalidad, respeto y humanidad.</p>
+    <h4>El espacio</h4>
+    <p>Estamos trabajando para construir un espacio donde te sientas bien. Queremos ser tu Clínica Dental de confianza en Burriana y espacio de referencia en el bienestar.</p>
+    <p>Nos encontramos en: <a href="https://www.google.com/maps/search/?api=1&query=Avenida+Cardenal+Vicente+Enrique+Tarancón+22,+Burriana" target="_blank" rel="noopener noreferrer" class="underline flex items-center gap-1" style="color: var(--color-primary);">Avenida Cardenal Vicente Enrique Tarancón 22 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a></p>
+    <h4>Teresa Molés</h4>
+    <p>Natural de Burriana, después de más de 10 años de experiencia en diferentes clínicas, ha decidido poner en marcha la suya propia. Su objetivo es tratar a las personas con profesionalidad, respeto y humanidad.</p>
 </Dialog>
 
 <Dialog title="¿Quieres decirnos algo?" id="contact">
-  <p>Utiliza este formulario para contactar con nosotros y te contestaremos lo antes posible.</p>
-  <form action="https://formspree.io/f/mnjjjpyd" method="POST" class="flex flex-col gap-4">
-      <Input
-          label="Nombre"
-          placeholder="Tu nombre completo"
-          name="name"
-          required
-      />
-
-      <Input
-          label="Email"
-          type="email"
-          placeholder="tu@email.com"
-          name="_replyto"
-          required
-      />
-
-      <Textarea
-          label="Mensaje"
-          placeholder="Escribe tu mensaje aquí..."
-          name="message"
-          required
-      />
-
-      <div class="flex flex-col gap-0">
-      <label class="flex items-center gap-2 text-sm cursor-pointer">
-          <input
-              type="checkbox"
-              class="w-4 h-4 accent-[var(--color-primary)] cursor-pointer"
-              required
-              name="privacy"
-          />
-          <span class="text-left">He leído y acepto la política de privacidad</span>
-      </label>
-      <p class="text-tiny text-left"><strong>Responsable:</strong> Teresa Molés SL. <strong>Finalidad:</strong> Dar respuesta a las consultas a través del formulario de contacto. <strong>Legitimación:</strong> Consentimiento del interesado. <strong>Destinatarios:</strong> No se cederán datos a terceros, salvo obligación legal. <strong>Derechos:</strong> Tiene derecho a acceder, rectificar y suprimir los datos, así como otros derechos, como se explica en la información adicional. <strong>Información adicional:</strong> Puede consultar la información adicional y detallada sobre Protección de Datos Personales en el Aviso Legal y Política de Privacidad.</p>
-
-      <div class="flex flex-col sm:flex-row justify-center gap-3 mt-6">
-        <Button
-          label="Cerrar"
-          variant="outlined"
-          data-close-dialog
+    <p>Utiliza este formulario para contactar con nosotros y te contestaremos lo antes posible.</p>
+    <form action="https://formspree.io/f/mYOUR_FORM_ID" method="POST" class="flex flex-col gap-4">
+        <Input
+            label="Nombre"
+            placeholder="Tu nombre completo"
+            name="name"
+            required
         />
 
-        <Button
-          label="Enviar"
-          id="submit-btn"
-          type="submit"
+        <Input
+            label="Email"
+            type="email"
+            placeholder="tu@email.com"
+            name="_replyto"
+            required
         />
-      </div>
-  </form>
-</Dialog>
 
-<!-- Legal Dialogs -->
-<Dialog title="Aviso Legal" id="legal" showSubmit={false}>
-  <h4>Información General</h4>
-  <p>En cumplimiento con el deber de información dispuesto en la Ley 34/2002 de Servicios de la Sociedad de la Información y el Comercio Electrónico (LSSI-CE) de 11 de julio, se facilitan los siguientes datos de información general de este sitio web:</p>
-  <p><strong>Denominación social:</strong> Teresa Molés SL</p>
-  <p><strong>NIF:</strong> [Insertar NIF]</p>
-  <p><strong>Domicilio social:</strong> Avenida Cardenal Vicente Enrique Tarancón 22, Burriana (Castellón)</p>
-  <p><strong>Correo electrónico:</strong> info@teresamoles.es</p>
-  <p><strong>Actividad:</strong> Servicios odontológicos y bienestar</p>
+        <Textarea
+            label="Mensaje"
+            placeholder="Escribe tu mensaje aquí..."
+            name="message"
+            required
+        />
 
-  <h4>Objeto y Ámbito de Aplicación</h4>
-  <p>El presente aviso legal regula el uso del sitio web www.teresamoles.es (en adelante, el "Sitio Web") que Teresa Molés SL pone a disposición del público.</p>
+        <div class="flex flex-col gap-0">
+            <label class="flex items-center gap-2 text-sm cursor-pointer">
+                <input
+                    type="checkbox"
+                    class="w-4 h-4 accent-[var(--color-primary)] cursor-pointer"
+                    required
+                    name="privacy"
+                />
+                <span class="text-left">He leído y acepto la política de privacidad</span>
+            </label>
+            <p class="text-tiny text-left"><strong>Responsable:</strong> Teresa Molés SL. <strong>Finalidad:</strong> Dar respuesta a las consultas a través del formulario de contacto. <strong>Legitimación:</strong> Consentimiento del interesado. <strong>Destinatarios:</strong> No se cederán datos a terceros, salvo obligación legal. <strong>Derechos:</strong> Tiene derecho a acceder, rectificar y suprimir los datos, así como otros derechos, como se explica en la información adicional. <strong>Información adicional:</strong> Puede consultar la información adicional y detallada sobre Protección de Datos Personales en el Aviso Legal y Política de Privacidad.</p>
+        </div>
 
-  <h4>Condiciones de Uso</h4>
-  <p>El acceso al Sitio Web es gratuito salvo en lo relativo al coste de la conexión a través de la red de telecomunicaciones suministrada por el proveedor de acceso contratado por los usuarios.</p>
-</Dialog>
-
-<Dialog title="Política de Privacidad" id="privacy" showSubmit={false}>
-  <h4>Responsable del Tratamiento</h4>
-  <p><strong>Identidad:</strong> Teresa Molés SL</p>
-  <p><strong>NIF:</strong> [Insertar NIF]</p>
-  <p><strong>Dirección:</strong> Avenida Cardenal Vicente Enrique Tarancón 22, Burriana (Castellón)</p>
-  <p><strong>Correo electrónico:</strong> info@teresamoles.es</p>
-
-  <h4>Finalidad del Tratamiento</h4>
-  <p>Los datos personales facilitados a través de los formularios del sitio web se recogen con las siguientes finalidades:</p>
-  <ul class="list-disc pl-6">
-      <li>Gestión de consultas y solicitudes de información</li>
-      <li>Envío de comunicaciones comerciales sobre nuestros servicios</li>
-      <li>Mejora de nuestros servicios y experiencia del usuario</li>
-  </ul>
-
-  <h4>Legitimación</h4>
-  <p>La base jurídica para el tratamiento de sus datos es el consentimiento del interesado, el interés legítimo del responsable y el cumplimiento de obligaciones legales.</p>
-
-  <h4>Destinatarios</h4>
-  <p>No se cederán datos a terceros salvo obligación legal.</p>
-
-  <h4>Derechos</h4>
-  <p>Puede ejercer sus derechos de acceso, rectificación, supresión, limitación, portabilidad y oposición enviando un email a info@teresamoles.es o carta a nuestra dirección.</p>
-</Dialog>
-
-<Dialog title="Política de Cookies" id="cookies" showSubmit={false}>
-  <h4>¿Qué son las Cookies?</h4>
-  <p>Las cookies son pequeños archivos de texto que se almacenan en su navegador cuando visita nuestro sitio web.</p>
-
-  <h4>Tipos de Cookies que Utilizamos</h4>
-  <p>Este sitio web utiliza las siguientes categorías de cookies:</p>
-  <ul class="list-disc pl-6">
-      <li><strong>Cookies técnicas (necesarias):</strong> Esenciales para el funcionamiento básico del sitio web</li>
-      <li><strong>Cookies de análisis:</strong> Para analizar el uso del sitio web y mejorar nuestros servicios</li>
-  </ul>
-
-  <h4>Gestión de Cookies</h4>
-  <p>Puede configurar su navegador para aceptar o rechazar cookies. También puede gestionar su consentimiento a través del banner de cookies. La desactivación de cookies no necesarias puede afectar a algunas funcionalidades del sitio web.</p>
-
-  <h4>Consentimiento</h4>
-  <p>Su consentimiento se almacena localmente en su navegador. Puede revocarlo en cualquier momento configurando su navegador o contactándonos.</p>
-</Dialog>
-
-<Dialog title="Configurar Cookies" id="cookie-config">
-  <p>Selecciona los tipos de cookies que deseas aceptar:</p>
-
-  <form class="flex flex-col gap-4">
-      <label class="flex items-center gap-2 text-sm cursor-pointer">
-          <input
-              type="checkbox"
-              id="necessary-cookies"
-              checked
-              disabled
-              class="w-4 h-4 accent-[var(--color-primary)] cursor-pointer"
-          />
-          <span class="text-left"><strong>Cookies técnicas (necesarias)</strong> - Esenciales para el funcionamiento del sitio web</span>
-      </label>
-
-      <label class="flex items-center gap-2 text-sm cursor-pointer">
-          <input
-              type="checkbox"
-              id="analytics-cookies"
-              class="w-4 h-4 accent-[var(--color-primary)] cursor-pointer"
-          />
-          <span class="text-left"><strong>Cookies de análisis</strong> - Para analizar el uso del sitio web y mejorar nuestros servicios</span>
-      </label>
-
-      <div class="flex flex-col sm:flex-row gap-2 mt-4">
+        <div class="flex justify-center mt-6">
           <Button
-              label="Aceptar selección"
-              id="save-cookie-config"
-              class="flex-1"
+            label="Enviar"
+            id="submit-btn"
+            type="submit"
           />
-          <Button
-              label="Aceptar todas"
-              id="accept-all-config"
-              variant="outlined"
-              class="flex-1"
-          />
-          <Button
-              label="Solo necesarias"
-              id="accept-essential-config"
-              variant="outlined"
-              class="flex-1"
-          />
-      </div>
-  </form>
+        </div>
+     </form>
 </Dialog>
 
 <style>
@@ -263,16 +153,6 @@ import Badge from '../../components/Badge.astro';
         }
       });
     });
-
-    // Cerrar al hacer click fuera del modal
-    dialogs.forEach(dialog => {
-      dialog.addEventListener("click", (e) => {
-        const innerDiv = dialog.querySelector('.dialog-inner');
-        if (innerDiv && !innerDiv.contains(e.target)) {
-          dialog.classList.add("hidden");
-        }
-      });
-    });
   }
 
   function isValidEmail(email) {
@@ -313,12 +193,10 @@ import Badge from '../../components/Badge.astro';
 
     // Handle contact form
     const contactDialog = document.querySelector('[data-dialog="contact"]');
-    console.log('Contact dialog found:', !!contactDialog);
     if (contactDialog) {
       const form = contactDialog.querySelector('form');
       const submitBtn = contactDialog.querySelector('#submit-btn');
       const emailInput = form.querySelector('input[type="email"]');
-      console.log('Form found:', !!form, 'Submit btn found:', !!submitBtn);
 
       if (form && submitBtn) {
         // Initial check
@@ -327,38 +205,6 @@ import Badge from '../../components/Badge.astro';
         // Listen for changes
         form.addEventListener('input', () => checkFormValidity(form, submitBtn));
         form.addEventListener('change', () => checkFormValidity(form, submitBtn));
-
-        // Handle form submission
-        form.addEventListener('submit', async (e) => {
-          e.preventDefault();
-          console.log('Submit button disabled:', submitBtn.disabled);
-          if (!submitBtn.disabled) {
-            console.log('Sending form...');
-            const formData = new FormData(form);
-            try {
-              const response = await fetch(form.action, {
-                method: 'POST',
-                body: formData,
-                headers: {
-                  'Accept': 'application/json'
-                }
-              });
-              console.log('Response status:', response.status);
-              if (response.ok) {
-                alert('Mensaje enviado correctamente. Te contestaremos pronto.');
-                form.reset();
-                contactDialog.classList.add('hidden');
-              } else {
-                alert('Error al enviar el mensaje. Inténtalo de nuevo.');
-              }
-            } catch (error) {
-              console.error('Fetch error:', error);
-              alert('Error al enviar el mensaje. Inténtalo de nuevo.');
-            }
-          } else {
-            console.log('Button is disabled, form not valid');
-          }
-        });
 
         // Email validation on blur
         if (emailInput) {

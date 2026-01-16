@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import GradientOverlay from "../components/GradientOverlay.astro";
+import Dialog from "../components/Dialog.astro";
 ---
 <!doctype html>
 <html lang="es" class="overflow-y-scroll">
@@ -15,6 +16,107 @@ import GradientOverlay from "../components/GradientOverlay.astro";
 		<div id="background-mask" class="bg-black text-foreground"></div>
 		<GradientOverlay/>
 		<slot />
+
+		<!-- Legal Dialogs -->
+		<Dialog title="Política de Privacidad" id="privacy" showSubmit={false}>
+		    <h4>Responsable del Tratamiento</h4>
+		    <p><strong>Identidad:</strong> Teresa Molés SL</p>
+		    <p><strong>NIF:</strong> [Insertar NIF]</p>
+		    <p><strong>Dirección:</strong> Avenida Cardenal Vicente Enrique Tarancón 22, Burriana (Castellón)</p>
+		    <p><strong>Correo electrónico:</strong> info@teresamoles.es</p>
+
+		    <h4>Finalidad del Tratamiento</h4>
+		    <p>Los datos personales facilitados a través de los formularios del sitio web se recogen con las siguientes finalidades:</p>
+		    <ul class="list-disc pl-6">
+		        <li>Gestión de consultas y solicitudes de información</li>
+		        <li>Envío de comunicaciones comerciales sobre nuestros servicios</li>
+		        <li>Mejora de nuestros servicios y experiencia del usuario</li>
+		    </ul>
+
+		    <h4>Legitimación</h4>
+		    <p>La base jurídica para el tratamiento de sus datos es el consentimiento del interesado, el interés legítimo del responsable y el cumplimiento de obligaciones legales.</p>
+
+		    <h4>Destinatarios</h4>
+		    <p>No se cederán datos a terceros salvo obligación legal.</p>
+
+		    <h4>Derechos</h4>
+		    <p>Puede ejercer sus derechos de acceso, rectificación, supresión, limitación, portabilidad y oposición enviando un email a info@teresamoles.es o carta a nuestra dirección.</p>
+		</Dialog>
+
+		<Dialog title="Aviso Legal" id="legal" showSubmit={false}>
+		    <h4>Información General</h4>
+		    <p>En cumplimiento con el deber de información dispuesto en la Ley 34/2002 de Servicios de la Sociedad de la Información y el Comercio Electrónico (LSSI-CE) de 11 de julio, se facilitan los siguientes datos de información general de este sitio web:</p>
+		    <p><strong>Denominación social:</strong> Teresa Molés SL</p>
+		    <p><strong>NIF:</strong> [Insertar NIF]</p>
+		    <p><strong>Domicilio social:</strong> Avenida Cardenal Vicente Enrique Tarancón 22, Burriana (Castellón)</p>
+		    <p><strong>Correo electrónico:</strong> info@teresamoles.es</p>
+		    <p><strong>Actividad:</strong> Servicios odontológicos y bienestar</p>
+
+		    <h4>Objeto y Ámbito de Aplicación</h4>
+		    <p>El presente aviso legal regula el uso del sitio web www.teresamoles.es (en adelante, el "Sitio Web") que Teresa Molés SL pone a disposición del público.</p>
+
+		    <h4>Condiciones de Uso</h4>
+		    <p>El acceso al Sitio Web es gratuito salvo en lo relativo al coste de la conexión a través de la red de telecomunicaciones suministrada por el proveedor de acceso contratado por los usuarios.</p>
+		</Dialog>
+
+		<Dialog title="Política de Cookies" id="cookies" showSubmit={false}>
+		    <h4>¿Qué son las Cookies?</h4>
+		    <p>Las cookies son pequeños archivos de texto que se almacenan en su navegador cuando visita nuestro sitio web.</p>
+
+		    <h4>Tipos de Cookies que Utilizamos</h4>
+		    <p>Este sitio web utiliza las siguientes categorías de cookies:</p>
+		    <ul class="list-disc pl-6">
+		        <li><strong>Cookies técnicas (necesarias):</strong> Esenciales para el funcionamiento básico del sitio web</li>
+		        <li><strong>Cookies de análisis:</strong> Para analizar el uso del sitio web y mejorar nuestros servicios</li>
+		    </ul>
+
+		    <h4>Gestión de Cookies</h4>
+		    <p>Puede configurar su navegador para aceptar o rechazar cookies. También puede gestionar su consentimiento a través del banner de cookies. La desactivación de cookies no necesarias puede afectar a algunas funcionalidades del sitio web.</p>
+
+		    <h4>Consentimiento</h4>
+		    <p>Su consentimiento se almacena localmente en su navegador. Puede revocarlo en cualquier momento configurando su navegador o contactándonos.</p>
+		</Dialog>
+
+		<script>
+		  function initDialogs() {
+		    const dialogs = document.querySelectorAll("[data-dialog]");
+		    const openBtns = document.querySelectorAll("[data-open-dialog]");
+		    const closeButtons = document.querySelectorAll("[data-close-dialog]");
+
+		    openBtns.forEach(btn => {
+		      const dialogId = btn.dataset.openDialog;
+		      const dialog = document.querySelector(`[data-dialog="${dialogId}"]`);
+		      if (dialog) {
+		        btn.addEventListener("click", () => {
+		          // Close all dialogs first
+		          dialogs.forEach(d => d.classList.add("hidden"));
+		          // Then open the specific one
+		          dialog.classList.remove("hidden");
+		        });
+		      }
+		    });
+
+		    closeButtons.forEach(btn => {
+		      btn.addEventListener("click", (e) => {
+		        e.preventDefault();
+		        // Close all dialogs
+		        dialogs.forEach(d => d.classList.add("hidden"));
+		      });
+		    });
+
+		    // Cerrar al hacer click fuera del modal
+		    dialogs.forEach(dialog => {
+		      dialog.addEventListener("click", (e) => {
+		        const innerDiv = dialog.querySelector('.dialog-inner');
+		        if (innerDiv && !innerDiv.contains(e.target)) {
+		          dialogs.forEach(d => d.classList.add("hidden"));
+		        }
+		      });
+		    });
+		  }
+
+		  document.addEventListener("DOMContentLoaded", initDialogs);
+		</script>
 	</body>
 </html>
 
