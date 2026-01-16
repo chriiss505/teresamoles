@@ -1,0 +1,59 @@
+---
+---
+
+<div id="cookie-banner" class="fixed bottom-0 left-0 right-0 bg-[var(--color-foreground)] text-[var(--color-background)] p-4 shadow-lg z-50 hidden">
+  <div class="max-w-4xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+    <p class="text-sm flex-1">
+      Este sitio web utiliza cookies propias y de terceros para mejorar tu experiencia de navegación y analizar el tráfico.
+      <button data-open-dialog="cookies" class="underline ml-2">Más información</button>
+    </p>
+    <div class="flex flex-col sm:flex-row gap-2">
+      <button id="accept-all-cookies" class="bg-[var(--color-primary)] text-[var(--color-background)] px-4 py-2 rounded-full text-sm hover:opacity-90">
+        Aceptar todas
+      </button>
+      <button id="accept-essential" class="bg-transparent border border-[var(--color-background)] text-[var(--color-background)] px-4 py-2 rounded-full text-sm hover:bg-[var(--color-background)] hover:text-[var(--color-foreground)]">
+        Solo necesarias
+      </button>
+      <button id="configure-cookies" data-open-dialog="cookie-config" class="bg-transparent border border-[var(--color-background)] text-[var(--color-background)] px-4 py-2 rounded-full text-sm hover:bg-[var(--color-background)] hover:text-[var(--color-foreground)]">
+        Configurar
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const banner = document.getElementById("cookie-banner");
+    const acceptAllBtn = document.getElementById("accept-all-cookies");
+    const acceptEssentialBtn = document.getElementById("accept-essential");
+
+    // Check if consent already given
+    const consent = localStorage.getItem("cookieConsent");
+    if (!consent) {
+      banner.classList.remove("hidden");
+    } else {
+      // If already consented, hide banner
+      banner.classList.add("hidden");
+    }
+
+    acceptAllBtn.addEventListener("click", () => {
+      localStorage.setItem("cookieConsent", JSON.stringify({
+        necessary: true,
+        analytics: true
+      }));
+      banner.classList.add("hidden");
+      // Enable all cookies
+    });
+
+    acceptEssentialBtn.addEventListener("click", () => {
+      localStorage.setItem("cookieConsent", JSON.stringify({
+        necessary: true,
+        analytics: false
+      }));
+      banner.classList.add("hidden");
+      // Enable only necessary cookies
+    });
+
+    // Configure button opens the cookies dialog, handled by existing script
+  });
+</script>

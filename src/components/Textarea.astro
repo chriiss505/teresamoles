@@ -20,8 +20,15 @@ const {
   ...rest
 } = Astro.props as Props;
 
-const textareaClasses = `bg-white rounded-lg px-4 py-2 w-full shadow-sm focus:outline-none focus:ring-1 focus:ring-[var(--color-border)] focus:border-transparent focus:shadow-md transition-all resize-none ${className}`;
+const textareaClasses = `bg-white rounded-lg px-4 py-2 w-full shadow-sm focus:outline-none focus:ring-1 focus:ring-[var(--color-focus)] focus:border-transparent focus:shadow-md transition-all resize-none ${className}`;
 ---
+
+<style>
+  textarea:-webkit-autofill {
+    background-color: var(--color-background) !important;
+    color: var(--color-foreground) !important;
+  }
+</style>
 
 <div class="flex flex-col gap-2">
   {label && (

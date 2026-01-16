@@ -11,59 +11,173 @@ import Input from "./Input.astro";
   data-open-dialog="avisame"
 />
 
-<Dialog title="Avísame de la apertura por email" id="avisame">
-  <form class="flex flex-col gap-4">
+ <Dialog title="Avísame de la apertura por email" id="avisame" showSubmit={false}>
+  <form action="https://formspree.io/f/maqqqezd" method="POST" class="flex flex-col gap-4">
     <p class="text-sm text-gray-600">
       Si nos dejas tu email te avisaremos cuando abramos tu nueva clínica dental y espacio de bienestar.
     </p>
 
-    <Input 
-      label="Nombre" 
+    <Input
+      label="Nombre"
       placeholder="Tu nombre completo"
       name="name"
       required
     />
-    
-    <Input 
-      label="Email" 
+
+    <Input
+      label="Email"
       type="email"
       placeholder="tu@email.com"
-      name="email"
+      name="_replyto"
       required
     />
 
-    <label class="flex items-center gap-2 text-sm cursor-pointer">
-      <input 
-        type="checkbox" 
-        class="w-4 h-4 accent-[var(--color-primary)] cursor-pointer" 
-        required 
-      />
-      <span class="text-left">Acepto los términos y condiciones</span>
-    </label>
+    <div class="flex flex-col gap-0">
+      <label class="flex items-center gap-2 text-sm cursor-pointer">
+        <input
+          type="checkbox"
+          class="w-4 h-4 accent-[var(--color-primary)] cursor-pointer"
+          required
+          name="privacy"
+        />
+        <span class="text-left">He leído y acepto la política de privacidad</span>
+      </label>
+      <p class="text-tiny text-left"><strong>Responsable:</strong> Teresa Molés SL. <strong>Finalidad:</strong> Enviarle información sobre la apertura de nuestra clínica y bienestar. <strong>Legitimación:</strong> Consentimiento del interesado. <strong>Destinatarios:</strong> No se cederán datos a terceros, salvo obligación legal. <strong>Derechos:</strong> Tiene derecho a acceder, rectificar y suprimir los datos, así como otros derechos, como se explica en la información adicional. <strong>Información adicional:</strong> Puede consultar la información adicional y detallada sobre Protección de Datos Personales en el Aviso Legal y Política de Privacidad.</p>
+    </div>
 
     <label class="flex items-center gap-2 text-sm cursor-pointer">
-      <input 
-        type="checkbox" 
-        class="w-4 h-4 accent-[var(--color-primary)] cursor-pointer" 
+      <input
+        type="checkbox"
+        class="w-4 h-4 accent-[var(--color-primary)] cursor-pointer"
+        required
+        name="newsletter"
       />
       <span class="text-left">Acepto el envío de emails</span>
     </label>
+
+    <div class="flex justify-center mt-6">
+      <Button
+        label="Enviar"
+        id="submit-btn"
+        type="submit"
+      />
+    </div>
   </form>
 </Dialog>
 
 <script>
-  const dialog = document.querySelector('[data-dialog="avisame"]');
-  const openBtn = document.querySelector('[data-open-dialog="avisame"]');
-
-  if (dialog && openBtn) {
-    openBtn.addEventListener("click", () => {
-      dialog.classList.remove("hidden");
-    });
-
-    dialog.querySelectorAll("[data-close-dialog]").forEach(btn => {
-      btn.addEventListener("click", () => {
-        dialog.classList.add("hidden");
-      });
-    });
+  function isValidEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
   }
+
+  function checkFormValidity(form, submitBtn) {
+    const requiredInputs = form.querySelectorAll('input[required], textarea[required]');
+    const requiredCheckboxes = form.querySelectorAll('input[type="checkbox"][required]');
+
+    let allValid = true;
+
+    requiredInputs.forEach(input => {
+      if (input.type === 'email') {
+        if (!input.value.trim() || !isValidEmail(input.value)) {
+          allValid = false;
+        }
+      } else {
+        if (!input.value.trim()) {
+          allValid = false;
+        }
+      }
+    });
+
+    requiredCheckboxes.forEach(checkbox => {
+      if (!checkbox.checked) {
+        allValid = false;
+      }
+    });
+
+    submitBtn.disabled = !allValid;
+    submitBtn.style.opacity = allValid ? '1' : '0.5';
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    // Handle avisame form
+    const avisameDialog = document.querySelector('[data-dialog="avisame"]');
+    if (avisameDialog) {
+      const form = avisameDialog.querySelector('form');
+      const submitBtn = avisameDialog.querySelector('#submit-btn');
+      const emailInput = form.querySelector('input[type="email"]');
+
+      if (form && submitBtn) {
+        // Initial check
+        checkFormValidity(form, submitBtn);
+
+        // Listen for changes
+        form.addEventListener('input', () => checkFormValidity(form, submitBtn));
+        form.addEventListener('change', () => checkFormValidity(form, submitBtn));
+
+        // Handle form submission
+        form.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          if (!submitBtn.disabled) {
+            const formData = new FormData(form);
+            try {
+              const response = await fetch(form.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                  'Accept': 'application/json'
+                }
+              });
+              if (response.ok) {
+                alert('Suscripción registrada. Te avisaremos cuando abramos.');
+                form.reset();
+                avisameDialog.classList.add('hidden');
+              } else {
+                alert('Error al registrar la suscripción. Inténtalo de nuevo.');
+              }
+            } catch (error) {
+              alert('Error al registrar la suscripción. Inténtalo de nuevo.');
+            }
+          }
+        });
+
+        // Email validation on blur
+        if (emailInput) {
+          const inputContainer = emailInput.parentElement;
+          let errorSpan = inputContainer.querySelector('.email-error');
+
+          emailInput.addEventListener('blur', () => {
+            if (emailInput.value && !isValidEmail(emailInput.value)) {
+              emailInput.style.borderColor = 'var(--color-secondary)';
+              emailInput.style.borderWidth = '1px';
+              if (!errorSpan) {
+                errorSpan = document.createElement('span');
+                errorSpan.className = 'email-error text-xs text-left text-[var(--color-secondary)]';
+                errorSpan.textContent = 'Email incorrecto';
+                inputContainer.appendChild(errorSpan);
+              }
+            } else {
+              emailInput.style.borderColor = '';
+              emailInput.style.borderWidth = '';
+              if (errorSpan) {
+                errorSpan.remove();
+                errorSpan = null;
+              }
+            }
+          });
+
+          emailInput.addEventListener('input', () => {
+            if (isValidEmail(emailInput.value)) {
+              emailInput.style.borderColor = '';
+              emailInput.style.borderWidth = '';
+              if (errorSpan) {
+                errorSpan.remove();
+                errorSpan = null;
+              }
+            }
+          });
+        }
+      }
+    }
+  });
 </script>

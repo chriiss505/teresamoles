@@ -27,10 +27,15 @@ import GradientOverlay from "../components/GradientOverlay.astro";
 
 		--color-primary: #2f5d57;
 		--color-secondary: #ffc176;
-	
-    --color-border: #d9d9d9;
-		--color-footerGradient: #a5a5a5;
 
+     --color-border: #d9d9d9;
+		--color-focus: #d9d9d9;
+
+	}
+
+	:root {
+		--color-footerGradient: #a5a5a5;
+    
 	}
 /* Definir Readex Pro */
 @font-face {
@@ -181,6 +186,14 @@ a:active {
   a {
     font-size: 16px;
   }
+}
+
+/* Tiny text for privacy explanations */
+.text-tiny {
+  font-size: 0.625rem;
+  color: #d1d5db;
+  font-weight: 300;
+  line-height: 1.2;
 }
 
 

@@ -24,12 +24,12 @@ import Badge from '../../components/Badge.astro';
         />
       </div>
       
-      {/* Navegación - centrada siempre */}
-      <nav class="flex items-center justify-center gap-4 w-full sm:w-1/3 order-2 sm:order-2">
-        <a href="/privacy" class="text-xs sm:text-sm hover:underline">Privacidad</a>
-        <a href="/legal" class="text-xs sm:text-sm hover:underline">Legal</a>
-        <a href="/cookies" class="text-xs sm:text-sm hover:underline">Cookies</a>
-      </nav>
+       {/* Navegación - centrada siempre */}
+        <nav class="flex items-center justify-center gap-4 w-full sm:w-1/3 order-2 sm:order-2">
+          <span data-open-dialog="privacy" class="text-xs sm:text-sm hover:underline cursor-pointer">Privacidad</span>
+          <span data-open-dialog="legal" class="text-xs sm:text-sm hover:underline cursor-pointer">Legal</span>
+          <span data-open-dialog="cookies" class="text-xs sm:text-sm hover:underline cursor-pointer">Cookies</span>
+        </nav>
       
       {/* Copyright - centrado en móvil, derecha en desktop */}
       <div class="flex items-center justify-center sm:justify-end w-full sm:w-1/3 order-3 sm:order-3">
