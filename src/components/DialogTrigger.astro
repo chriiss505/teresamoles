@@ -12,7 +12,7 @@ import Input from "./Input.astro";
 />
 
  <Dialog title="¡No te pierdas la apertura!" id="avisame" showSubmit={false}>
-  <form action="https://formspree.io/f/maqqqezd" method="POST" class="flex flex-col gap-4">
+  <form id="avisame-form" action="https://formspree.io/f/maqqqezd" method="POST" class="flex flex-col gap-4">
     <p class="text-sm text-gray-600">
       Déjanos tu email y te avisaremos para la inauguración de la nueva Clínica Dental Teresa Molés, Espacio de Bienestar.
     </p>
@@ -179,5 +179,53 @@ import Input from "./Input.astro";
         }
       }
     }
+  });
+</script>
+<!-- Dialog de confirmación -->
+<Dialog title="¡Hasta Pronto!" id="avisame-success" showSubmit={false}>
+  <p>¡Te has inscrito correctamente! Pronto recibirás un email con toda la información sobre la apertura.</p>
+  <div class="flex justify-center mt-6">
+    <Button label="Cerrar" id="avisame-success-close" type="button" />
+  </div>
+</Dialog>
+
+<script type="module">
+  const avisameDialog = document.querySelector('[data-dialog="avisame"]');
+  const successDialog = document.querySelector('[data-dialog="avisame-success"]');
+  const form = document.getElementById('avisame-form');
+  const submitBtn = form.querySelector('#submit-btn');
+  const closeSuccessBtn = successDialog.querySelector('#avisame-success-close');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Enviando...';
+
+    const formData = new FormData(form);
+
+    try {
+      const res = await fetch(form.action, {
+        method: form.method,
+        body: formData,
+        headers: { 'Accept': 'application/json' }
+      });
+
+      if (res.ok) {
+        form.reset();
+        avisameDialog.classList.add('hidden'); // cerrar formulario
+        successDialog.classList.remove('hidden'); // abrir dialog de éxito
+      } else {
+        alert('Hubo un error al enviar el formulario.');
+      }
+    } catch {
+      alert('Hubo un error al enviar el formulario.');
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Enviar';
+    }
+  });
+
+  closeSuccessBtn.addEventListener('click', () => {
+    successDialog.classList.add('hidden');
   });
 </script>
