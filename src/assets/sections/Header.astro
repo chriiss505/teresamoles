@@ -44,7 +44,7 @@ import Badge from '../../components/Badge.astro';
 
 <Dialog title="¿Quieres decirnos algo?" id="contact">
     <p>Utiliza este formulario para contactar con nosotras/el equipo Teresa Molés y te responderemos lo antes posible.</p>
-    <form id="contact-form" action="https://formspree.io/f/mnjjjpyd" method="POST" class="flex flex-col gap-4">
+    <form id="contact-form" action="https://formspree.io/f/mnjjjpyd" method="POST" class="flex flex-col gap-4 px-2">
         <Input
             label="Nombre"
             placeholder="Tu nombre completo"
@@ -301,7 +301,7 @@ import Badge from '../../components/Badge.astro';
 </script>
 <!-- Dialog de confirmación -->
 <Dialog title="¡Gracias!" id="contact-success" showSubmit={false}>
-  <p>¡Mensaje enviado correctamente! Te responderemos lo antes posible.</p>
+  <p>Mensaje enviado correctamente. Te responderemos lo antes posible.</p>
   <div class="flex justify-center mt-6">
     <Button label="Cerrar" id="success-close" type="button" />
   </div>
