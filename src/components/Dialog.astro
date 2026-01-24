@@ -5,7 +5,7 @@ const { title, id, showSubmit = true, showCloseButton = true } = Astro.props;
 
 <div
   data-dialog={id}
-  class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm hidden"
+  class="fixed inset-0 z-[9999] flex items-center justify-center bg-black/50 backdrop-blur-sm hidden"
 >
 <div class="dialog-inner bg-[var(--color-background)] rounded-xl shadow-xl max-w-2xl w-[90vw] sm:w-full p-6 sm:p-12 relative max-h-[80vh] flex flex-col gap-4">
       {showCloseButton && (

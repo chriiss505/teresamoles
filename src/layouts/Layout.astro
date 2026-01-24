@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import GradientOverlay from "../components/GradientOverlay.astro";
 import Dialog from "../components/Dialog.astro";
+import CookieBanner from "../components/CookieBanner.astro";
 ---
 <!doctype html>
 <html lang="es" class="overflow-y-scroll">
@@ -76,6 +77,8 @@ import Dialog from "../components/Dialog.astro";
 		    <h4>Consentimiento</h4>
 		    <p>Su consentimiento se almacena localmente en su navegador. Puede revocarlo en cualquier momento configurando su navegador o contactándonos.</p>
 		</Dialog>
+
+		<CookieBanner />
 
 		<script>
 		  function initDialogs() {
