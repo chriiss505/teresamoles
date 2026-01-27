@@ -11,6 +11,7 @@
     "gh-pages": "gh-pages -d dist -t"
   },
   "dependencies": {
+    "@astrojs/sitemap": "^3.7.0",
     "astro": "5.16.7"
   },
   "devDependencies": {

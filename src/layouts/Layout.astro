@@ -8,10 +8,38 @@ import CookieBanner from "../components/CookieBanner.astro";
 <html lang="es" class="overflow-y-scroll">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="favicon.svg" />
-		<title>Clínica Dental</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png" />
+		<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+	
+		<title>Clínica Dental Teresa Molés | Odontología y Bienestar en Burriana</title>
+		<meta name="description" content="Especialistas en odontología avanzada y bienestar en Burriana. Un espacio tranquilo diseñado para tu salud dental." />
+		<link rel="canonical" href="https://clinicateresamoles.com" />
+	
+		<meta property="og:type" content="website" />
+		<meta property="og:title" content="Clínica Dental Teresa Molés" />
+		<meta property="og:description" content="Tu salud dental en un espacio diseñado para tu bienestar." />
+		<meta property="og:image" content="/og-image.jpg" />
+		<script type="application/ld+json">
+			{
+			  "@context": "https://schema.org",
+			  "@type": "Dentist",
+			  "name": "Clínica Dental Teresa Molés",
+			  "image": "https://clinicateresamoles.com/favicon-192.png",
+			  "@id": "https://clinicateresamoles.com",
+			  "url": "https://clinicateresamoles.com",
+			  "address": {
+				"@type": "PostalAddress",
+				"streetAddress": "Avenida Cardenal Vicente Enrique Tarancón 22",
+				"addressLocality": "Burriana",
+				"postalCode": "12530",
+				"addressRegion": "Castellón",
+				"addressCountry": "ES"
+			  },
+			}
+		  </script>
 	</head>
 	<body>
 		<div id="background-mask" class="bg-black text-foreground"></div>
